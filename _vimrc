@@ -58,7 +58,14 @@ set shiftwidth=4
 "与windows 共享剪贴板
 set clipboard+=unnamed
 
-"菜单栏乱码
+
+"设置编码方式
+set encoding=utf-8
+"自动判断编码时 依次尝试一下编码
+set termencoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin11
+
+"菜单栏乱码(放在编码之后)
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
@@ -67,14 +74,6 @@ language messages zh_CN.utf-8
 
 "防止特殊符号无法正常显示
 set ambiwidth=double
-
-
-"设置编码方式
-set encoding=utf-8
-"自动判断编码时 依次尝试一下编码
-set termencoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin11
-
 
 filetype plugin indent on
 
@@ -107,13 +106,7 @@ map <silent> <F2> :if &guioptions=~# 'T' <Bar>
     \endif<CR>
 
 
-" 将外部命令 wmctrl 控制窗口最大化的命令行参数封装成一个 vim 的函数
-func ToggleFullscreen()
-	call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")
-endfunc
 
-" 全屏开/关快捷键
-map <silent> <F11> :call ToggleFullscreen()<CR>
 
 "-------------------------- colorsolarized------------------------------------------
 
@@ -173,7 +166,7 @@ filetype plugin on    " required
 
 " h: vundle         - 获取帮助
 
-" vundle的配置到此结束，下面是你自己的配置
+" vundle的配置到此结束，下面是我的配置
 
 
 
