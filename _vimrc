@@ -275,7 +275,7 @@ set nofoldenable
 " markdown 插件不自动折叠
 autocmd BufNewFile,BufRead *.md set nofoldenable
 
-"设置 python IDE
+"设置 IDE
 "Quickly Run
 """"""""""""""""""""
 map <F5> :call CompileRun()<CR>
@@ -284,6 +284,16 @@ func CompileRun()
    exec "w"
    if &filetype == "python"
       exec "!python %"
+
+   elseif &filetype == "c"
+       exec "!g++ % -o %<"
+       exec "! %<"
+
+   elseif &filetype == "cpp"
+       exec "!g++ % -o %<"
+       exec "! %<"
    endif
+
+
 endfunc
 
