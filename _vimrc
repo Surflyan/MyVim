@@ -94,7 +94,7 @@ set guioptions-=L
 
 "高亮当前行/列
 set cursorline
-set cursorcolumn
+"set cursorcolumn
 
 
 map <silent> <F2> :if &guioptions=~# 'T' <Bar>
@@ -147,7 +147,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'davidhalter/jedi-vim'
-
+Plugin 'bronson/vim-trailing-whitespace'
 
 " Markdown 高亮
 Plugin 'godlygeek/tabular'
@@ -229,11 +229,29 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+" 修复Error后，自动更新底部错误信息
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_cpp_checkers = ['clang_check','gcc']
+let g:syntastic_c_checkers = ['clang_check','gcc']
+let g:syntastic_python_checkers = ['pyflakes','pylint']
+
+
+"let g:syntastic_cpp_compiler = 'clang++'
+"let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
+let g:syntastic_cpp_compiler = 'gcc'
+let g:syntastic_cpp_compiler_options = '-std=c++11'
+
+" 设置自动检查文件类型，手动检查文件类型（手动执行syntasticCheck)
+let g:syntastic_mode_map = {
+            \ "mode": "active",
+            \ "active_filetypes": ["cpp","c","python","md"],
+            \ "passive_filetypes": ["java","php","js"] }
 
 
 "------------------------ Setting for jedi -----------------------------
@@ -247,12 +265,17 @@ let g:jedi#completions_command = "<Space>"
 
 "------------------------ Setting for Map ------------------------------
 
+" 窗口切换
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <c-W><C-L>
 
+" 消除空格
+nmap <leader><space> :FixWhitespace<CR>
 
+"移动分割线(increase)
+nmap <C-I> <C-W><<>
 
 "-----------------------  End of Setting  ------------------------------
 
@@ -293,7 +316,5 @@ func CompileRun()
        exec "!g++ % -o %<"
        exec "! %<"
    endif
-
-
 endfunc
 
